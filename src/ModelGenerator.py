@@ -30,5 +30,12 @@ def create_model(max_seq_len,bert_ckpt_file,classes):
   model.build(input_shape=(None, max_seq_len))
 
   load_stock_weights(bert, config.bert_ckpt_file)
-        
+  
+  print(model.summary())
+
+  model.compile(
+  optimizer=config.OPTIMIZER,
+  loss=config.LOSS,
+  metrics=[keras.metrics.SparseCategoricalAccuracy(name="acc")])
+    
   return model

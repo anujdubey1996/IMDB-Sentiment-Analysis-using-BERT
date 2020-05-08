@@ -14,8 +14,8 @@ class DataFetcher:
 
   def __init__(self, filename):
     self.train = pd.read_csv(filename)
-    self.test = self.train.iloc[:25000]
-    self.train = self.train.iloc[25000:]
+    self.test = self.train.iloc[:100]
+    self.train = self.train.iloc[100:]
     self.classes = self.train[DataFetcher.LABEL_COLUMN].unique().tolist()
 
 class DataGenerator:

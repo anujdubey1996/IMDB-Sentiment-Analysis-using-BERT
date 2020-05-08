@@ -4,6 +4,10 @@ from bert import BertModelLayer
 from bert.loader import StockBertConfig, map_stock_config_to_params, load_stock_weights
 from bert.tokenization.bert_tokenization import FullTokenizer
 
+import tensorflow as tf
+from tensorflow import keras
+
+
 DATA_COLUMN = "review"
 LABEL_COLUMN = "sentiment"
 
@@ -16,3 +20,6 @@ bert_ckpt_file = os.path.join(bert_ckpt_dir, "bert_model.ckpt")
 bert_config_file = os.path.join(bert_ckpt_dir, "bert_config.json")
 
 tokenizer = FullTokenizer(vocab_file=os.path.join(bert_ckpt_dir, "vocab.txt"))
+
+OPTIMIZER = keras.optimizers.Adam(1e-5)
+LOSS = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
