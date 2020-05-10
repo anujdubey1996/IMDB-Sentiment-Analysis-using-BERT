@@ -21,16 +21,17 @@ def create_model(max_seq_len,bert_ckpt_file,classes):
   print("bert shape", bert_output.shape)
 
   cls_out = keras.layers.Lambda(lambda seq: seq[:, 0, :])(bert_output)
-  cls_out = keras.layers.Dropout(0.5)(cls_out)
+  cls_out = keras.layers.Dropout(config.DROPOUT)(cls_out)
   logits = keras.layers.Dense(units=768, activation="tanh")(cls_out)
-  logits = keras.layers.Dropout(0.5)(logits)
+  logits = keras.layers.Dropout(config.DROPOUT)(logits)
   logits = keras.layers.Dense(units=len(classes), activation="softmax")(logits)
 
   model = keras.Model(inputs=input_ids, outputs=logits)
   model.build(input_shape=(None, max_seq_len))
-
+  
   load_stock_weights(bert, config.bert_ckpt_file)
   
+
   print(model.summary())
 
   model.compile(

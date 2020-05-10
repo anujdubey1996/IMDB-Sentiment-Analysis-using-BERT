@@ -23,3 +23,4 @@ tokenizer = FullTokenizer(vocab_file=os.path.join(bert_ckpt_dir, "vocab.txt"))
 
 OPTIMIZER = keras.optimizers.Adam(1e-5)
 LOSS = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+DROPOUT = 0.2
